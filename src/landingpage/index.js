@@ -12,7 +12,9 @@ function index(props){
         <React.Fragment>
             <CssBaseline />
                 <Header />
-                <Toolbar />
+                <Box my={5}>
+                    <Toolbar />
+                </Box>
                 <Box>
                     <Container sx={{textAlign:'-webkit-center'}}>
                         <Grid container spacing={2} my={5}>

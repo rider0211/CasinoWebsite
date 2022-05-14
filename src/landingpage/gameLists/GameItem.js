@@ -12,7 +12,7 @@ export default function MediaControlCard(props) {
     const theme = useTheme();
     const prop = props.item;
     return (
-        <Box my={3} sx={{boxShadow: '0px 0px 50px 18px rgb(129 49 255 / 57%)'}}>
+        <Box my={3} sx={{boxShadow: '0px 0px 50px 18px rgb(73 46 165 / 57%)'}}>
             <Card sx={{ display: 'flex',}}>
                 <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                     <CardContent sx={{ flex: '1 0 auto' }}>
