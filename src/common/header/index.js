@@ -1,9 +1,12 @@
 import * as React from 'react';
-import { AppBar, Box, Link, Container, Badge,Typography, IconButton, Menu, MenuItem, useScrollTrigger, Modal } from '@mui/material';
+import { AppBar, Box, Link, Container, Badge,Typography, IconButton, Menu, MenuItem, useScrollTrigger, Modal, Tab, TextField, Button} from '@mui/material';
+import {TabContext, TabList, TabPanel} from '@mui/lab';
 import { useNavigate } from 'react-router-dom';
 import { Stack } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import PropTypes from 'prop-types';
+import { styled } from '@mui/material/styles';
+import { purple } from '@mui/material/colors';
 
 const pages = ['Login', 'Signup', 'OfferWall'];
 
@@ -31,10 +34,11 @@ const style = {
     transform: 'translate(-50%, -50%)',
     width: 400,
     bgcolor: 'background.paper',
-    border: '2px solid #000',
+    border: '1px solid #e8d089',
     boxShadow: 24,
     p: 4,
-    opacity:'80%'
+    opacity:'100%',
+    borderRadius:3
   };
 export default function ButtonAppBar(props) {
     const navigate = useNavigate();
@@ -42,8 +46,15 @@ export default function ButtonAppBar(props) {
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
     const [open, setOpen] = React.useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+    const [tabValue, setTabValue] = React.useState('1');
+
+    const handleLoginOpen = () => {setTabValue('1'); setOpen(true);}
+    const handleRegisterOpen = () => {setTabValue('2'); setOpen(true);} 
+    const handleClose = (param) => {setOpen(false);}
+
+    const handleChange = (event, newValue) => {
+      setTabValue(newValue);
+    };
   
     const handleOpenNavMenu = (event) => {
       setAnchorElNav(event.currentTarget);
@@ -73,6 +84,18 @@ export default function ButtonAppBar(props) {
     const handleCloseUserMenu = () => {
       setAnchorElUser(null);
     };
+
+    const ColorButton = styled(Button)(({ theme }) => ({
+        color: theme.palette.getContrastText(purple[500]),
+        backgroundColor: purple[500],
+        width:'100%',
+        marginTop:'2rem',
+        marginBottom:'1rem',
+        '&:hover': {
+          backgroundColor: purple[700],
+        },
+      }));
+
     return (
     <Box sx={{ flexGrow: 1 }}>
         <ElevationScroll {...props}>
@@ -102,8 +125,8 @@ export default function ButtonAppBar(props) {
                         </Link>
                         <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2} display={{xs:'none', md:'flex'}}>
                             <Link underline='none' href="/" color={'white'} >OfferWall</Link>
-                            <Link underline='none' href="/About"  color={'white'} >Login</Link>
-                            <Link underline='none' href="#" onClick={handleOpen} color={'white'} >Register</Link>
+                            <Link underline='none' href="#" onClick={handleLoginOpen}  color={'white'} >Login</Link>
+                            <Link underline='none' href="#" onClick={handleRegisterOpen} color={'white'} >Register</Link>
                         </Stack>
                     </Stack>
                 </Container>
@@ -116,12 +139,31 @@ export default function ButtonAppBar(props) {
             aria-describedby="modal-modal-description"
         >
             <Box sx={style}>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-                Text in a modal
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-            </Typography>
+                <Stack direction={'column'} justifyContent={'space-betweeen'} alignItems={'center'} spacing={2}>
+                    <Box component="img" sx={{height: '88px'}} src="/static/img/logo.png"/>
+                    <TabContext value={tabValue}>
+                        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                            <TabList onChange={handleChange}>
+                                <Tab label="Login" value="1" />
+                                <Tab label="Register" value="2" />
+                            </TabList>
+                        </Box>
+                        <TabPanel value="1" sx={{textAlign:'center'}}>
+                            <TextField id="usernameOrEmail" label="Username or Email" fullWidth variant="standard" placeholder='Enter your username or email'/>
+                            <TextField id="password" label="Password" variant="standard" fullWidth placeholder='Enter your password'/>
+                            <ColorButton variant="contained">Login</ColorButton>
+                            <Typography variant='h7' sx={{color:'#ddd', fontSize:'small'}}>Don't have an account?<Link href="#" onClick={handleRegisterOpen} px={1}>Register Here</Link></Typography>
+                        </TabPanel>
+                        <TabPanel value="2" sx={{textAlign:'center'}}>
+                            <TextField id="username" label="Username" fullWidth variant="standard" placeholder='Enter your Username'/>
+                            <TextField id="email" label="Email" fullWidth variant="standard" placeholder='Enter your Email'/>
+                            <TextField id="password" label="Password" variant="standard" fullWidth placeholder='Enter your password'/>
+                            <TextField id="confirmPassword" label="Confirm Password" variant="standard" fullWidth placeholder='Confirm your password'/>
+                            <ColorButton variant="contained">Register</ColorButton>
+                            <Typography variant='h9' sx={{color:'#ddd', fontSize:'small'}} >Already have an account?<Link href="#" onClick={handleLoginOpen} px={1}>Login Here</Link></Typography>
+                        </TabPanel>
+                    </TabContext>
+                </Stack>
             </Box>
         </Modal>
     </Box>

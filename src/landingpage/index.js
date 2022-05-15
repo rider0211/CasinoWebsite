@@ -19,8 +19,8 @@ function index(props){
                     <Container sx={{textAlign:'-webkit-center'}}>
                         <Grid container spacing={2} my={5}>
                             <Grid item xs={8}>
-                                <Typography variant='h4' fontFamily={'Railway'}>Let the crypto games begin!
-                                Win more often than ever in the world's highest odds roulette games run entirely and fairly on the blockchain.</Typography>
+                                <Typography variant='h4' fontFamily={'Cursive'} marginTop={8} color={'#e8d089'} sx={{textShadow: '0px 0px 20px rgba(206,89,55,0.93);'}}>Welcome to our Crazy Games!
+                                It's the great chance to taste happiness and wealth together.</Typography>
                             </Grid>
                             <Grid item xs={4}>
                                 <Box component="img" src="/static/img/right.png"/>
