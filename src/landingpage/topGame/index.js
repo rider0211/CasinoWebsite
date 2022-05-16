@@ -9,6 +9,7 @@ import Typography from '@mui/material/Typography';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import Divider from '@mui/material/Divider';
 import MUIDataTable from "mui-datatables";
+import { styled } from '@mui/material/styles';
 
 export default function MediaControlCard() {
   const theme = useTheme();
@@ -24,6 +25,15 @@ export default function MediaControlCard() {
     filterType: "dropdown",
     responsive: "standard"
   };
+
+  const StyledMUIDatatable = styled(MUIDataTable)(({ theme }) => ({
+    backgroundColor: '#3c2798',
+    color:'#fff',
+    boxShadow:'none',
+    backgroundImage:'none',
+    padding:'10px',
+    width:'100%',
+  }));
   return (
     <Box padding={'10px'} sx={{backgroundColor:'#311b92', borderRadius:'60px'}}>
         <Card sx={{ display: 'flex', borderRadius:'50px', border:'solid 9px #1b104e' }}>
@@ -49,7 +59,7 @@ export default function MediaControlCard() {
                 </Box>
             </Box>
             <Divider orientation="vertical" flexItem></Divider>
-            <MUIDataTable
+            <StyledMUIDatatable
                 title={"Top Winners"}
                 data={data}
                 columns={columns}
